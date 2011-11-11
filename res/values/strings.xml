@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Go away, I\'m busy !</string>
+    <string name="title">OpenADK demonstration</string>
     <string name="app_name">AndroidUI</string>
 </resources>

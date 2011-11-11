@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.util.Log;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import org.geekscape.android.androidservice.*;
@@ -25,24 +26,26 @@ public class AndroidUIActivity extends Activity {
 
   private MessageApi messageApi;
 
-  private TextView textView;
+  private TextView statusView;
+
+  private ListView listView;
 
   private MessageListener.Stub messageListener = new MessageListener.Stub() {
     public void handleMessage()
       throws RemoteException {
 
-      Log.i(LOG_TAG, "handleMessage()");
+//  Log.d(LOG_TAG, "handleMessage()");
 
       handler.post(new Runnable() {
         public void run() {
           try {
             Message message = messageApi.getMessage();
-            String output = "Message: " + message.getTopic() + ", " + message.getPayload();
-            Log.i(LOG_TAG, output);
-            textView.setText(output);
+            String output = message.getTopic() + ", " + message.getPayload();
+            Log.d(LOG_TAG, "Message: " + output);
+            statusView.setText(output);
           }
           catch (Throwable throwable) {
-            Log.i(LOG_TAG, "Error while handling message", throwable);
+            Log.e(LOG_TAG, "Error while handling message", throwable);
           }
         }
       });
@@ -54,7 +57,7 @@ public class AndroidUIActivity extends Activity {
       ComponentName componentName,
       IBinder       service) {
 
-      Log.i(LOG_TAG, "Service connection established");
+      Log.d(LOG_TAG, "Service connection established");
 
       messageApi = MessageApi.Stub.asInterface(service);
 
@@ -62,7 +65,7 @@ public class AndroidUIActivity extends Activity {
         messageApi.addListener(messageListener);
       }
       catch (RemoteException remoteException) {
-        Log.i(LOG_TAG, "Failed to add listener", remoteException);
+        Log.e(LOG_TAG, "Failed to add listener", remoteException);
       }
 
 // ToDo: Update Message view
@@ -71,7 +74,7 @@ public class AndroidUIActivity extends Activity {
     public void onServiceDisconnected(
       ComponentName componentName) {
 
-      Log.i(LOG_TAG, "Service connection closed");
+      Log.d(LOG_TAG, "Service connection closed");
     }
   };
 
@@ -80,33 +83,35 @@ public class AndroidUIActivity extends Activity {
     Bundle savedInstanceState) {
 
     super.onCreate(savedInstanceState);
-    Log.i(LOG_TAG, "onCreate()");
+    Log.d(LOG_TAG, "onCreate()");
     setContentView(R.layout.main);
-
     handler = new Handler(); // bound to the current UI thread
 
-    textView = (TextView) findViewById(R.id.text_view);
+    statusView = (TextView) findViewById(R.id.statusView);
+
+    listView = (ListView) findViewById(R.id.listView);
+    listView.setAdapter(new ListAdapter(this));
 
     Intent intent = new Intent(SERVICE_INTENT);
     startService(intent);
     bindService(intent, serviceConnection, 0);
 
-    Log.i(LOG_TAG, "Activity created and Service started");
+    Log.d(LOG_TAG, "Activity created and Service started");
   }
 
   @Override
   protected void onDestroy() {
     super.onDestroy();
-    Log.i(LOG_TAG, "onDestroy()");
+    Log.d(LOG_TAG, "onDestroy()");
 
     try {
       messageApi.removeListener(messageListener);
       unbindService(serviceConnection);
     }
     catch (Throwable throwable) {
-      Log.i(LOG_TAG, "Failed to unbind from the service", throwable);
+      Log.e(LOG_TAG, "Failed to unbind from the service", throwable);
     }
 
-    Log.i(LOG_TAG, "Activity destroyed");
+    Log.d(LOG_TAG, "Activity destroyed");
   }
 }

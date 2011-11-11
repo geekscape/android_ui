@@ -1,12 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    >
-<TextView
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent">
+
+  <TextView
     android:layout_width="fill_parent" 
     android:layout_height="wrap_content" 
-    android:text="@string/hello"
-    android:id="@+id/text_view"/>
+    android:text="@string/title"
+    android:typeface="sans"
+    android:textSize="26dip"
+    android:textStyle="bold"
+    android:textColor="#ffffff"
+    android:layout_marginBottom="5dip">
+  </TextView>
+
+  <RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="3px">
+
+    <TextView 
+      android:id="@+id/statusLabel"
+      android:layout_width="120dip"
+      android:layout_height="wrap_content"
+      android:gravity="center_vertical|left"
+      android:text="Status:"
+      android:textSize="15dip"
+      android:textStyle="bold"
+      android:textColor="#ffffff">
+    </TextView>
+
+    <TextView
+      android:id="@+id/statusView"
+      android:layout_width="fill_parent" 
+      android:layout_height="wrap_content" 
+      android:layout_toRightOf="@+id/statusLabel"
+      android:gravity="center_vertical|left"
+      android:text="No status"
+      android:textSize="15dip"
+      android:textStyle="bold"
+      android:textColor="#ffffff">
+    </TextView>
+  </RelativeLayout>
+
+  <RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="#570000">
+
+    <TextView 
+      android:id="@+id/header1"
+      android:layout_width="120dip"
+      android:layout_height="wrap_content"
+      android:gravity="center_vertical|left"
+      android:text="Name"
+      android:textSize="15dip"
+      android:textStyle="bold"
+      android:textColor="#ffffff">
+    </TextView>
+
+    <TextView
+      android:id="@+id/header2"
+      android:layout_width="200dip"
+      android:layout_height="wrap_content"
+      android:layout_toRightOf="@+id/header1"
+      android:gravity="center_vertical|left"
+      android:text="Value"
+      android:textSize="15dip"
+      android:textStyle="bold"
+      android:textColor="#ffffff">
+    </TextView>
+  </RelativeLayout>
+
+  <ListView
+    android:id="@+id/listView"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:cacheColorHint="#00000000">
+  </ListView>
 </LinearLayout>
