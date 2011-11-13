@@ -30,6 +30,13 @@ public class AndroidUIActivity extends Activity {
 
   private ListView listView;
 
+  public void sendMessage(
+    Message message)
+    throws  RemoteException {
+
+    if (messageApi != null) messageApi.sendMessage(message);
+  }
+
   private MessageListener.Stub messageListener = new MessageListener.Stub() {
     public void handleMessage()
       throws RemoteException {

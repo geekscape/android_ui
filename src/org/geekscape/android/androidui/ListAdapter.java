@@ -1,6 +1,9 @@
 package org.geekscape.android.androidui;
 
+import org.geekscape.android.androidservice.Message;
+
 import android.content.Context;
+import android.os.RemoteException;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,11 +16,14 @@ import android.widget.TextView;
 
 public class ListAdapter extends BaseAdapter {
 
+  private AndroidUIActivity androidUIActivity;
+
   private LayoutInflater layoutInflater;
 
   public ListAdapter(
     Context context) {
 
+    androidUIActivity = (AndroidUIActivity) context;
     layoutInflater = LayoutInflater.from(context);
   }   
 
@@ -55,6 +61,12 @@ public class ListAdapter extends BaseAdapter {
         public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
           CheckBox checkBox = (CheckBox) compoundButton;
           TransducerList.values[(Integer) checkBox.getTag()] = isChecked;
+
+          Message message = new Message("topic", "(pin " + checkBox.getTag() + " " + isChecked + ")");
+          try {
+            androidUIActivity.sendMessage(message);
+          }
+          catch (RemoteException remoteException) {}
         }
       });
 
