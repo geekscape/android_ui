@@ -86,7 +86,6 @@ public class AndroidUIActivity extends Activity {
     Log.d(LOG_TAG, "onCreate()");
     setContentView(R.layout.main);
     handler = new Handler(); // bound to the current UI thread
-
     statusView = (TextView) findViewById(R.id.statusView);
 
     listView = (ListView) findViewById(R.id.listView);

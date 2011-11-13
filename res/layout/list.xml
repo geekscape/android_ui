@@ -12,20 +12,19 @@
     android:layout_height="wrap_content"
     android:gravity="left"
     android:text="textView1"
-    android:textSize="15dip"
+    android:textSize="20dip"
     android:textStyle="bold"
-    android:textColor="#ffffff">
+    android:textColor="#ffffff"
+    android:layout_marginTop="6dip"
+    android:layout_marginBottom="6dip">
   </TextView>
 
-  <TextView
-    android:id="@+id/textView2"
-    android:layout_width="wrap_content"
+  <CheckBox
+    android:id="@+id/checkBox1"
+    android:layout_width="40dip"
     android:layout_height="wrap_content"
     android:layout_toRightOf="@+id/textView1"
     android:gravity="left"
-    android:text="textView2"
-    android:textSize="15dip"
-    android:textStyle="bold"
-    android:textColor="#ffffff">
-  </TextView>
+    android:clickable="true">
+  </CheckBox>
 </LinearLayout>

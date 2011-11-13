@@ -1,10 +1,14 @@
 package org.geekscape.android.androidui;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
 
 public class ListAdapter extends BaseAdapter {
@@ -44,9 +48,15 @@ public class ListAdapter extends BaseAdapter {
       convertView = layoutInflater.inflate(R.layout.list, null);
 
       viewHolder = new ViewHolder();
-
       viewHolder.textView1 = (TextView) convertView.findViewById(R.id.textView1);
-      viewHolder.textView2 = (TextView) convertView.findViewById(R.id.textView2);
+      viewHolder.checkBox1 = (CheckBox) convertView.findViewById(R.id.checkBox1);
+
+      viewHolder.checkBox1.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+        public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+          CheckBox checkBox = (CheckBox) compoundButton;
+          TransducerList.values[(Integer) checkBox.getTag()] = isChecked;
+        }
+      });
 
       convertView.setTag(viewHolder);
     } 
@@ -55,13 +65,14 @@ public class ListAdapter extends BaseAdapter {
     }       
 
     viewHolder.textView1.setText(TransducerList.names[index]);
-    viewHolder.textView2.setText(TransducerList.values[index]  ?  "true"  :  "false");
+    viewHolder.checkBox1.setTag(index);  // Must be before setChecked()
+    viewHolder.checkBox1.setChecked(TransducerList.values[index]);
 
     return(convertView);
   }       
 
   static class ViewHolder {
     TextView textView1;
-    TextView textView2;
+    CheckBox checkBox1;
   }       
 }
