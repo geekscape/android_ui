@@ -63,7 +63,7 @@
 
     <TextView
       android:id="@+id/header2"
-      android:layout_width="200dip"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_toRightOf="@+id/header1"
       android:gravity="center_vertical|left"
@@ -74,10 +74,23 @@
     </TextView>
   </RelativeLayout>
 
-  <ListView
-    android:id="@+id/listView"
+  <LinearLayout
+    android:orientation="horizontal"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:cacheColorHint="#00000000">
-  </ListView>
+    android:layout_height="fill_parent">
+
+    <ListView
+      android:id="@+id/checkBoxListView"
+      android:layout_width="180dip"
+      android:layout_height="wrap_content"
+      android:cacheColorHint="#00000000">
+    </ListView>
+
+    <ListView
+      android:id="@+id/sliderListView"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:cacheColorHint="#00000000">
+    </ListView>
+  </LinearLayout>
 </LinearLayout>

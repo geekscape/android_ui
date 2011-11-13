@@ -28,7 +28,9 @@ public class AndroidUIActivity extends Activity {
 
   private TextView statusView;
 
-  private ListView listView;
+  private ListView checkBoxListView;
+
+  private ListView sliderListView;
 
   public void sendMessage(
     Message message)
@@ -95,8 +97,11 @@ public class AndroidUIActivity extends Activity {
     handler = new Handler(); // bound to the current UI thread
     statusView = (TextView) findViewById(R.id.statusView);
 
-    listView = (ListView) findViewById(R.id.listView);
-    listView.setAdapter(new ListAdapter(this));
+    checkBoxListView = (ListView) findViewById(R.id.checkBoxListView);
+    checkBoxListView.setAdapter(new CheckBoxListAdapter(this));
+
+    sliderListView = (ListView) findViewById(R.id.sliderListView);
+    sliderListView.setAdapter(new SliderListAdapter(this));
 
     Intent intent = new Intent(SERVICE_INTENT);
     startService(intent);

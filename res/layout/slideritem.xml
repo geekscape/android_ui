@@ -4,31 +4,26 @@
   android:layout_width="wrap_content"
   android:layout_height="wrap_content"
   android:gravity="left|center"
-  android:paddingBottom="1px">
+  android:paddingRight="10px">
 
   <TextView
-    android:id="@+id/textView1"
+    android:id="@+id/textView2"
     android:layout_width="120dip"
     android:layout_height="wrap_content"
     android:gravity="left"
     android:text="textView1"
     android:textSize="20dip"
     android:textStyle="bold"
-    android:textColor="#ffffff"
-    android:layout_marginTop="6dip"
-    android:layout_marginBottom="6dip">
+    android:textColor="#ffffff">
   </TextView>
 
-<!-- Change the look (size) of a CheckBox
-     http://www.anddev.org/viewtopic.php?p=17050
-  -->
+<!-- Include slider value as an integer -->
 
-  <CheckBox
-    android:id="@+id/checkBox1"
-    android:layout_width="wrap_content"
+  <SeekBar
+    android:id="@+id/seekBar2"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_toRightOf="@+id/textView1"
-    android:gravity="left"
-    android:clickable="true">
-  </CheckBox>
+    android:layout_toRightOf="@+id/textView2"
+    android:gravity="left">
+  </SeekBar>
 </LinearLayout>

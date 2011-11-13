@@ -4,23 +4,21 @@ import org.geekscape.android.androidservice.Message;
 
 import android.content.Context;
 import android.os.RemoteException;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
-public class ListAdapter extends BaseAdapter {
+public class SliderListAdapter extends BaseAdapter {
 
   private AndroidUIActivity androidUIActivity;
 
   private LayoutInflater layoutInflater;
 
-  public ListAdapter(
+  public SliderListAdapter(
     Context context) {
 
     androidUIActivity = (AndroidUIActivity) context;
@@ -28,7 +26,7 @@ public class ListAdapter extends BaseAdapter {
   }   
 
   public int getCount() {
-    return(TransducerList.names.length);
+    return(TransducerList.linearNames.length);
   }   
 
   public Object getItem(
@@ -51,23 +49,27 @@ public class ListAdapter extends BaseAdapter {
     ViewHolder viewHolder;
 
     if (convertView == null) {
-      convertView = layoutInflater.inflate(R.layout.list, null);
+      convertView = layoutInflater.inflate(R.layout.slideritem, null);
 
       viewHolder = new ViewHolder();
-      viewHolder.textView1 = (TextView) convertView.findViewById(R.id.textView1);
-      viewHolder.checkBox1 = (CheckBox) convertView.findViewById(R.id.checkBox1);
+      viewHolder.textView2 = (TextView) convertView.findViewById(R.id.textView2);
+      viewHolder.seekBar2  = (SeekBar) convertView.findViewById(R.id.seekBar2);
 
-      viewHolder.checkBox1.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-        public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-          CheckBox checkBox = (CheckBox) compoundButton;
-          TransducerList.values[(Integer) checkBox.getTag()] = isChecked;
+      viewHolder.seekBar2.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+        public void onStopTrackingTouch(SeekBar seekBar) {
+          int progress = seekBar.getProgress();
+          TransducerList.linearValues[(Integer) seekBar.getTag()] = progress;
 
-          Message message = new Message("topic", "(pin " + checkBox.getTag() + " " + isChecked + ")");
+          Message message = new Message("topic", "(pin a" + seekBar.getTag() + " " + progress + ")");
           try {
             androidUIActivity.sendMessage(message);
           }
           catch (RemoteException remoteException) {}
         }
+
+        public void onStartTrackingTouch(SeekBar seekBar) {}
+
+        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {}
       });
 
       convertView.setTag(viewHolder);
@@ -76,15 +78,15 @@ public class ListAdapter extends BaseAdapter {
       viewHolder = (ViewHolder) convertView.getTag();
     }       
 
-    viewHolder.textView1.setText(TransducerList.names[index]);
-    viewHolder.checkBox1.setTag(index);  // Must be before setChecked()
-    viewHolder.checkBox1.setChecked(TransducerList.values[index]);
+    viewHolder.textView2.setText(TransducerList.linearNames[index]);
+    viewHolder.seekBar2.setTag(index);  // Must be before setChecked()
+    viewHolder.seekBar2.setProgress(TransducerList.linearValues[index]);
 
     return(convertView);
   }       
 
   static class ViewHolder {
-    TextView textView1;
-    CheckBox checkBox1;
+    TextView textView2;
+    SeekBar  seekBar2;
   }       
 }
