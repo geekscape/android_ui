@@ -1,10 +1,10 @@
-<!--
-  -- Please do not remove the following notices.
-  -- Copyright (c) 2011 by Geekscape Pty. Ltd.
-  -- License: AGPLv3 http://geekscape.org/static/aiko_license.html
-  --> 
-
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  Please do not remove the following notices.
+  Copyright (c) 2011 by Geekscape Pty. Ltd.
+  License: AGPLv3 http://geekscape.org/static/aiko_license.html
+  -->
+
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   package="org.geekscape.android.androidui"
   android:versionCode="1"
